@@ -43,6 +43,7 @@ public class CustomKeyboardView extends KeyboardView {
 
         List<Keyboard.Key> keys = getKeyboard().getKeys();
 
+        //Coloring Keys
         for (Keyboard.Key key : keys) {
 
             mPaint.setTextAlign(Paint.Align.CENTER);
@@ -94,14 +95,16 @@ public class CustomKeyboardView extends KeyboardView {
                     break;
             }
 
+            //Placing icons
             if (key.icon != null) {
                 key.icon.setBounds(key.x, key.y+15, key.x + key.width, key.y + key.height);
                 key.icon.draw(canvas);
             }
 
+            //Placing text (labels)
             if(key.label != null)
                 canvas.drawText(key.label.toString(), key.x + (key.width / 2),
-                        key.y + (key.height / 2) + mPaint.getTextSize()/3, mPaint);
+                        key.y + (key.height / 2) + mPaint.getTextSize()/2, mPaint);
         }
     }
 }

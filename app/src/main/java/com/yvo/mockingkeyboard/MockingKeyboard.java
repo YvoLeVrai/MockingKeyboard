@@ -40,7 +40,9 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
 
     @Override
     public View onCreateInputView() {
+        //Import keyboard layout
         kv = (CustomKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
+        //link Keys Layout
         keyboard = new Keyboard(this, R.xml.qwerty);
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
@@ -60,6 +62,8 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
 
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
+
+        //Mocking system (basically badly written code)
 
         InputConnection ic = getCurrentInputConnection();
 
@@ -109,7 +113,7 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_ENTER));
                 break;
             case 47:
-                //Uri bob = Uri.parse("content://com.yvo.mockingkeyboard.fileprovider/myimages/mockingbob");
+                //Send the bob image TODO Put in it's own method
                 Uri bob = FileProvider.getUriForFile(this, "com.yvo.mockingkeyboard.fileprovider", bobFile);
                 InputConnection inputConnection = getCurrentInputConnection();
                 EditorInfo editorInfo = getCurrentInputEditorInfo();
@@ -135,6 +139,7 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                         inputConnection, editorInfo, inputContentInfo, flag, null);
                 break;
             case 35:
+                //Button to switch android keyboard
                 InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
                 imeManager.showInputMethodPicker();
                 break;
@@ -208,7 +213,7 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
 
     }
 
-    //Partie pour Content Provider//
+    //Creating a content provider to be able to get a local image as a content scheme in the URI
 
     @Override
     public void onCreate() {
