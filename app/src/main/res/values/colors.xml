@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="keyboardBackground">#F8FA1E</color>
+    <color name="keyboardDivider">#CBF15E</color>
+    <color name="keyboardPressed">#52770E</color>
+
+    <color name="bobEyes">#77C8DB</color>
+    <color name="bobBody">#F8FA1E</color>
+    <color name="bobShirt">#FFFFFF</color>
+    <color name="bobTie">#E02215</color>
+    <color name="bobPants">#E27B00</color>
+    <color name="bobShoes">#1F110E</color>
+</resources>
