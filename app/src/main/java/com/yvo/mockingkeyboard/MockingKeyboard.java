@@ -53,6 +53,8 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
     @Override
     public void onPress(int primaryCode) {
 
+        vibrateClick(primaryCode);
+
     }
 
     @Override
@@ -63,11 +65,9 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
 
-        //Mocking system (basically badly written code)
+        //Mocking system (basically poorly written code)
 
         InputConnection ic = getCurrentInputConnection();
-
-        vibrateClick(primaryCode);
 
         if (ic.getTextBeforeCursor(1, 0).length() != 0)
         {

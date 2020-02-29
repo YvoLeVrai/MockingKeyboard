@@ -5,6 +5,7 @@
     android:layout_alignParentBottom="true"
 
     android:background="#2C0D00"
+    android:keyPreviewLayout="@null"
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

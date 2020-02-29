@@ -8,10 +8,14 @@
     <color name="keyboardDivider">#CBF15E</color>
     <color name="keyboardPressed">#52770E</color>
 
-    <color name="bobEyes">#77C8DB</color>
     <color name="bobBody">#F8FA1E</color>
+    <color name="bobBodyPress">#A4C015</color>
     <color name="bobShirt">#FFFFFF</color>
+    <color name="bobShirtPress">#B6DDE4</color>
     <color name="bobTie">#E02215</color>
+    <color name="bobTiePress">#8F1A12</color>
     <color name="bobPants">#E27B00</color>
+    <color name="bobPantsPress">#8F2B13</color>
     <color name="bobShoes">#1F110E</color>
+    <color name="bobShoesPress">#EFF1EC</color>
 </resources>
