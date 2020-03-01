@@ -3,6 +3,7 @@ package com.yvo.mockingkeyboard;
 import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.net.Uri;
@@ -21,12 +22,14 @@ import androidx.annotation.RawRes;
 import androidx.core.content.FileProvider;
 import androidx.core.view.inputmethod.InputConnectionCompat;
 import androidx.core.view.inputmethod.InputContentInfoCompat;
+import androidx.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.Policy;
 
 import static android.content.ContentValues.TAG;
 
@@ -35,6 +38,7 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
     private CustomKeyboardView kv;
     private Keyboard keyboard;
     private File bobFile;
+    private SharedPreferences settings;
 
     private boolean isCaps = false;
 
@@ -47,14 +51,15 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
 
+        settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         return kv;
     }
 
     @Override
     public void onPress(int primaryCode) {
-
-        vibrateClick(primaryCode);
-
+        if (settings.getBoolean("keyPress", true))
+            vibrateClick(primaryCode);
     }
 
     @Override
@@ -142,6 +147,16 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                 //Button to switch android keyboard
                 InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
                 imeManager.showInputMethodPicker();
+                break;
+            case 18:
+                //Entrer dans les options de l'app
+                Intent paramIntent = new Intent(this, PreferencesActivity.class);
+                //Entrer dans les options de l'app dans les settings androidandroid
+                //Intent paramIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                //Uri uri = Uri.fromParts("package", getPackageName(), null);
+                //paramIntent.setData(uri);
+                paramIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(paramIntent);
                 break;
             default:
                 char code = (char)primaryCode;

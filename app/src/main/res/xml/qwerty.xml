@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
-    android:horizontalGap="5px"
-    android:verticalGap="5px"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
     android:keyHeight="50dp">
 
     <!--numbers-->
+    <Row>
+        <Key android:keyLabel="Bob" android:keyWidth="100%p" android:codes="47"/>
+    </Row>
     <Row>
         <Key android:keyLabel="1"
             android:keyEdgeFlags="left"
@@ -76,8 +79,9 @@
 
     <!--asdfghjkl-->
     <Row>
-        <Key android:keyLabel="a" android:keyEdgeFlags="left" android:codes="97"
-            android:isRepeatable="true"/>
+        <Key android:keyLabel="a" android:codes="97"
+            android:isRepeatable="true"
+            android:horizontalGap="5%" android:keyEdgeFlags="left"/>
         <Key android:keyLabel="s" android:codes="115"
             android:isRepeatable="true"/>
         <Key android:keyLabel="d" android:codes="100"
@@ -92,13 +96,14 @@
             android:isRepeatable="true"/>
         <Key android:keyLabel="k" android:codes="107"
             android:isRepeatable="true"/>
-        <Key android:keyLabel="l" android:keyEdgeFlags="right" android:codes="108"
-            android:isRepeatable="true"/>
+        <Key android:keyLabel="l" android:codes="108"
+            android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
+
 
     <!--zxcvbnm-->
     <Row>
-        <Key android:keyLabel="Bob" android:keyWidth="15%p" android:keyEdgeFlags="left" android:codes="47"
+        <Key android:keyIcon="@drawable/ic_settings" android:keyWidth="15%" android:keyEdgeFlags="left" android:codes="18"
             android:isRepeatable="true"/>
         <Key android:keyLabel="z" android:codes="122"
             android:isRepeatable="true"/>

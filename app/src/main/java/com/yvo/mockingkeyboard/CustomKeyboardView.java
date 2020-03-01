@@ -138,7 +138,7 @@ public class CustomKeyboardView extends KeyboardView {
             if (key.icon != null) {
                 key.icon.setBounds(0, 0, key.icon.getIntrinsicWidth(), key.icon.getIntrinsicHeight());
                 canvas.save();
-                canvas.translate(key.x, key.y);
+                canvas.translate(key.x + key.width/2 - key.icon.getIntrinsicWidth()/2, key.y + (key.height / 2) - key.icon.getIntrinsicHeight()/2);
                 key.icon.draw(canvas);
                 canvas.restore();
             }

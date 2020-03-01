@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MockingKeyboard</string>
+
+    <string name="settings_name">Settings Mocking Keyboard</string>
+    <string name="title_preference"><b>You</b> <i>are</i> <u>awesome</u></string>
+    <string name="summary_preference">You can use some styles in your preferences by using the described way.</string>
 </resources>

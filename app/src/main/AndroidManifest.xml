@@ -3,6 +3,7 @@
     package="com.yvo.mockingkeyboard">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".PreferencesActivity" android:label="@string/settings_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
         <service
-            android:name=".MockingKeyboard"
-            android:label="MockingKeyboard"
+            android:name="MockingKeyboard"
+            android:label="Mocking Keyboard"
             android:permission="android.permission.BIND_INPUT_METHOD"
             >
             <meta-data android:name="android.view.im" android:resource="@xml/method"/>
@@ -32,5 +39,4 @@
                 android:resource="@xml/filepaths" />
         </provider>
     </application>
-
 </manifest>
