@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yvo.mockingkeyboard.CustomKeyboardViewFr
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard_fr"
+    android:layout_alignParentBottom="true"
+
+    android:background="#2C0D00"
+    android:keyPreviewLayout="@null"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</com.yvo.mockingkeyboard.CustomKeyboardViewFr>

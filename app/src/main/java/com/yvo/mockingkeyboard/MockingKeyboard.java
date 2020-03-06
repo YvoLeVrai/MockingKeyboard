@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.Policy;
+import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 
@@ -45,10 +47,25 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
     @Override
     public View onCreateInputView() {
         //Import keyboard layout
-        kv = (CustomKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
-        //link Keys Layout
-        keyboard = new Keyboard(this, R.xml.qwerty);
-        kv.setKeyboard(keyboard);
+        InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
+        InputMethodSubtype subtype = null;
+        if (imeManager != null) {
+            subtype = imeManager.getCurrentInputMethodSubtype();
+            switch(subtype.getLocale()) {
+                case "fr_FR":
+                    //link Keys Layout
+                    kv = (CustomKeyboardViewFr)getLayoutInflater().inflate(R.layout.keyboard_fr, null);
+                    keyboard = new Keyboard(this, R.xml.azerty);
+                    break;
+                default:
+                    kv = (CustomKeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
+                    //link Keys Layout
+                    keyboard = new Keyboard(this, R.xml.qwerty);
+                    break;
+            }
+            kv.setKeyboard(keyboard);
+        }
+
         kv.setOnKeyboardActionListener(this);
 
         settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -73,32 +90,42 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
         //Mocking system (basically poorly written code)
 
         InputConnection ic = getCurrentInputConnection();
+        switch (settings.getString("mockingMode", "alternating"))
+        {
+            case "alternating":
+                if (ic.getTextBeforeCursor(1, 0).length() != 0)
+                {
+                    if (Character.isUpperCase(ic.getTextBeforeCursor(1, 0).charAt(0)))
+                    {
+                        isCaps = true;
+                        toMocking();
+                        isCaps = false;
+                    }
+                    else if (Character.isLowerCase(ic.getTextBeforeCursor(1, 0).charAt(0)))
+                    {
+                        isCaps = false;
+                        toMocking();
+                        isCaps = true;
+                    }
+                }
+                else if (ic.getTextAfterCursor(1, 0).length() != 0)
+                {
+                    if (Character.isUpperCase(ic.getTextAfterCursor(1, 0).charAt(0)))
+                    {
+                        isCaps = false;
+                    }
+                    else if (Character.isLowerCase(ic.getTextAfterCursor(1, 0).charAt(0)))
+                    {
+                        isCaps = true;
+                    }
+                }
 
-        if (ic.getTextBeforeCursor(1, 0).length() != 0)
-        {
-            if (Character.isUpperCase(ic.getTextBeforeCursor(1, 0).charAt(0)))
-            {
-                isCaps = true;
-                toMocking();
-                isCaps = false;
-            }
-            else if (Character.isLowerCase(ic.getTextBeforeCursor(1, 0).charAt(0)))
-            {
-                isCaps = false;
-                toMocking();
-                isCaps = true;
-            }
-        }
-        else if (ic.getTextAfterCursor(1, 0).length() != 0)
-        {
-            if (Character.isUpperCase(ic.getTextAfterCursor(1, 0).charAt(0)))
-            {
-                isCaps = false;
-            }
-            else if (Character.isLowerCase(ic.getTextAfterCursor(1, 0).charAt(0)))
-            {
-                isCaps = true;
-            }
+                keyboard.setShifted(!isCaps);
+                break;
+            case "random":
+                Random rd = new Random();
+                isCaps = rd.nextBoolean();
+                break;
         }
 
         keyboard.setShifted(!isCaps);
@@ -146,9 +173,12 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
             case 35:
                 //Button to switch android keyboard
                 InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
-                imeManager.showInputMethodPicker();
+                if (imeManager != null) {
+                    imeManager.showInputMethodPicker();
+                }
                 break;
             case 18:
+                /*
                 //Entrer dans les options de l'app
                 Intent paramIntent = new Intent(this, PreferencesActivity.class);
                 //Entrer dans les options de l'app dans les settings androidandroid
@@ -156,7 +186,10 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                 //Uri uri = Uri.fromParts("package", getPackageName(), null);
                 //paramIntent.setData(uri);
                 paramIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(paramIntent);
+                startActivity(paramIntent);*/
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    switchToNextInputMethod(true);
+                }
                 break;
             default:
                 char code = (char)primaryCode;
@@ -273,5 +306,13 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
         } catch (IOException e) {
             return null;
         }
+    }
+
+    //Changing the keyboard
+
+    @Override
+    protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
+        super.onCurrentInputMethodSubtypeChanged(newSubtype);
+        setInputView(onCreateInputView());
     }
 }

@@ -8,4 +8,11 @@
         android:key="keyPress"
         android:title="Vibrate on key press"
         android:defaultValue="true"/>
+
+    <DropDownPreference
+        android:key="mockingMode"
+        android:title="Mocking Mode"
+        android:entries="@array/mockingModeEntries"
+        app:useSimpleSummaryProvider="true"
+        android:entryValues="@array/mockingModeEntry_values"/>
 </androidx.preference.PreferenceScreen>

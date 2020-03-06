@@ -10,20 +10,19 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.util.List;
 
-public class CustomKeyboardView extends KeyboardView {
+public class CustomKeyboardViewFr extends CustomKeyboardView {
 
     private Drawable drawable;
     Paint mPaint = new Paint();
     Canvas canvas;
 
-    public CustomKeyboardView(Context context, AttributeSet attrs) {
+    public CustomKeyboardViewFr(Context context, AttributeSet attrs) {
         super(context, attrs);
         drawable = AppCompatResources.getDrawable(context, R.drawable.key);
     }
@@ -74,7 +73,7 @@ public class CustomKeyboardView extends KeyboardView {
                     npTie.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     npTie.draw(canvas);
                     break;
-                case 113: case 119: case 101: case 114: case 117: case 105: case 111: case 112:
+                case 97: case 122: case 101: case 114: case 117: case 105: case 111: case 112:
                     //shirt Colored keys
                     Drawable keyShirt = DrawableCompat.wrap(drawable);
                     NinePatchDrawable npShirt = (NinePatchDrawable) keyShirt;
@@ -88,7 +87,7 @@ public class CustomKeyboardView extends KeyboardView {
                     npShirt.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     npShirt.draw(canvas);
                     break;
-                case 97: case 115: case 100: case 102: case 103: case 104: case 106: case 107: case 108:
+                case 113: case 115: case 100: case 102: case 103: case 104: case 106: case 107: case 108: case 109:
                     //Pant Colored keys
                     Drawable keyPant = DrawableCompat.wrap(drawable);
                     NinePatchDrawable npPant = (NinePatchDrawable) keyPant;
@@ -103,7 +102,7 @@ public class CustomKeyboardView extends KeyboardView {
                     npPant.draw(canvas);
                     break;
                 case 35: case 44: case 39: case 32: case 63: case 46: case -4:
-                    //Pant Colored keys
+                    //Shoes Colored keys
                     Drawable keyShoes = DrawableCompat.wrap(drawable);
                     NinePatchDrawable npShoes = (NinePatchDrawable) keyShoes;
                         if (key.pressed) {
@@ -159,13 +158,5 @@ public class CustomKeyboardView extends KeyboardView {
             }
         }
         //super.onDraw(canvas);
-    }
-
-    protected CharSequence adjustCase(CharSequence label) {
-        if (getKeyboard().isShifted() && label != null && label.length() < 3
-                && Character.isLowerCase(label.charAt(0))) {
-            label = label.toString().toUpperCase();
-        }
-        return label;
     }
 }
