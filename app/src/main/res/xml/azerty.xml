@@ -7,7 +7,8 @@
 
     <!--numbers-->
     <Row>
-        <Key android:keyLabel="Bob" android:keyWidth="100%p" android:codes="47"/>
+        <Key android:keyLabel="Bob" android:keyWidth="50%" android:codes="47"/>
+        <Key android:keyLabel="Gen depuis copier" android:keyWidth="50%p" android:codes="301"/>
     </Row>
     <Row>
         <Key android:keyLabel="1"

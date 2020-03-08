@@ -1,6 +1,7 @@
 package com.yvo.mockingkeyboard;
 
 import android.content.ClipDescription;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,6 +47,8 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
 
     @Override
     public View onCreateInputView() {
+        //InputMethodManager.setAdditionalInputMethodSubtype()
+
         //Import keyboard layout
         InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
         InputMethodSubtype subtype = null;
@@ -98,13 +101,13 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                     if (Character.isUpperCase(ic.getTextBeforeCursor(1, 0).charAt(0)))
                     {
                         isCaps = true;
-                        toMocking();
+                        endToMocking();
                         isCaps = false;
                     }
                     else if (Character.isLowerCase(ic.getTextBeforeCursor(1, 0).charAt(0)))
                     {
                         isCaps = false;
-                        toMocking();
+                        endToMocking();
                         isCaps = true;
                     }
                 }
@@ -191,6 +194,13 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                     switchToNextInputMethod(true);
                 }
                 break;
+            case 301:
+                //Generate from Clipboard
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                if (clipboard != null) {
+                    ic.commitText(toMocking(clipboard.getPrimaryClip().getItemAt(0).getText().toString()), 1);
+                }
+                break;
             default:
                 char code = (char)primaryCode;
                 if(Character.isLetter(code) && isCaps)
@@ -199,21 +209,13 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
         }
     }
 
-    private void toMocking() {
+    private void endToMocking() {
 
         InputConnection ic = getCurrentInputConnection();
         CharSequence afterCursor = ic.getTextAfterCursor(100, 0);
-        StringBuilder newAfterCursor = new StringBuilder();
+        String newAfterCursor;
 
-        for (char c : afterCursor.toString().toCharArray())
-        {
-            if (isCaps)
-                newAfterCursor.append(Character.toUpperCase(c));
-            else
-                newAfterCursor.append(Character.toLowerCase(c));
-
-            isCaps = !isCaps;
-        }
+        newAfterCursor = toMocking(afterCursor.toString());
 
         ic.deleteSurroundingText(0, newAfterCursor.length());
         ic.commitText(newAfterCursor,1);
@@ -234,6 +236,23 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                 v.vibrate(40);
             }
         }
+    }
+
+    private String toMocking(String textToMock)
+    {
+        StringBuilder mockedText =  new StringBuilder();
+
+        for (char c : textToMock.toCharArray())
+        {
+            if (isCaps)
+                mockedText.append(Character.toUpperCase(c));
+            else
+                mockedText.append(Character.toLowerCase(c));
+
+            isCaps = !isCaps;
+        }
+
+        return mockedText.toString();
     }
 
     @Override
