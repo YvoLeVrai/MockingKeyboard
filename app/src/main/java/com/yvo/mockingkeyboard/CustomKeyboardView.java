@@ -1,7 +1,9 @@
 package com.yvo.mockingkeyboard;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,11 +16,13 @@ import android.view.KeyEvent;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.preference.PreferenceManager;
 
 import java.util.List;
 
 public class CustomKeyboardView extends KeyboardView {
 
+    private SharedPreferences settings;
     private Drawable drawable;
     Paint mPaint = new Paint();
     Canvas canvas;
@@ -30,23 +34,94 @@ public class CustomKeyboardView extends KeyboardView {
 
     @Override
     public void onDraw(Canvas canvas) {
+
+        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         this.canvas = canvas;
 
+        ColorStateList rbobTie = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobTiePress = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobShirt = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobShirtPress = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobPants = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobPantsPress = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobBody = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobBodyPress = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobShoes = getResources().getColorStateList(R.color.bobTie);
+        ColorStateList rbobShoesPress = getResources().getColorStateList(R.color.bobTie);
+        int fontColor = Color.BLACK;
+        
+        switch (settings.getString("keyboardStyle", "contrasted"))
+        {
+            case "contrasted":
+                //Tie colored Key
+                rbobTie = getResources().getColorStateList(R.color.bobTie);
+                rbobTiePress = getResources().getColorStateList(R.color.bobTiePress);
+                //Shirt colored Keys
+                rbobShirt = getResources().getColorStateList(R.color.bobShirt);
+                rbobShirtPress = getResources().getColorStateList(R.color.bobShirtPress);
+                //Pant colored Keys
+                rbobPants = getResources().getColorStateList(R.color.bobPants);
+                rbobPantsPress = getResources().getColorStateList(R.color.bobPantsPress);
+                //Body colored Keys
+                rbobBody = getResources().getColorStateList(R.color.bobBody);
+                rbobBodyPress = getResources().getColorStateList(R.color.bobBodyPress);
+                //Shoes colored Keys
+                rbobShoes = getResources().getColorStateList(R.color.bobShirt);
+                rbobShoesPress = getResources().getColorStateList(R.color.bobShirtPress);
+                break;
+            case "light":
+                //Tie colored Key
+                rbobTie = getResources().getColorStateList(R.color.lightBobTie);
+                rbobTiePress = getResources().getColorStateList(R.color.lightBobTiePress);
+                //Shirt colored Keys
+                rbobShirt = getResources().getColorStateList(R.color.lightBobShirt);
+                rbobShirtPress = getResources().getColorStateList(R.color.lightBobShirtPress);
+                //Pant colored Keys
+                rbobPants = getResources().getColorStateList(R.color.lightBobPants);
+                rbobPantsPress = getResources().getColorStateList(R.color.lightBobPantsPress);
+                //Body colored Keys
+                rbobBody = getResources().getColorStateList(R.color.lightBobBody);
+                rbobBodyPress = getResources().getColorStateList(R.color.lightBobBodyPress);
+                //Shoes colored Keys
+                rbobShoes = getResources().getColorStateList(R.color.lightBobShirt);
+                rbobShoesPress = getResources().getColorStateList(R.color.lightBobShirtPress);
+                break;
+            case "dark":
+                //Tie colored Key
+                rbobTie = getResources().getColorStateList(R.color.darkBobTie);
+                rbobTiePress = getResources().getColorStateList(R.color.darkBobTiePress);
+                //Shirt colored Keys
+                rbobShirt = getResources().getColorStateList(R.color.darkBobShirt);
+                rbobShirtPress = getResources().getColorStateList(R.color.darkBobShirtPress);
+                //Pant colored Keys
+                rbobPants = getResources().getColorStateList(R.color.darkBobPants);
+                rbobPantsPress = getResources().getColorStateList(R.color.darkBobPantsPress);
+                //Body colored Keys
+                rbobBody = getResources().getColorStateList(R.color.darkBobBody);
+                rbobBodyPress = getResources().getColorStateList(R.color.darkBobBodyPress);
+                //Shoes colored Keys
+                rbobShoes = getResources().getColorStateList(R.color.darkBobShirt);
+                rbobShoesPress = getResources().getColorStateList(R.color.darkBobShirtPress);
+
+                fontColor = Color.LTGRAY;
+                break;
+        }
+
         //Tie colored Key
-        ColorStateList cTie = getResources().getColorStateList(R.color.bobTie);
-        ColorStateList cTiePress = getResources().getColorStateList(R.color.bobTiePress);
+        ColorStateList cTie = rbobTie;
+        ColorStateList cTiePress = rbobTiePress;
         //Shirt colored Keys
-        ColorStateList cShirt = getResources().getColorStateList(R.color.bobShirt);
-        ColorStateList cShirtPress = getResources().getColorStateList(R.color.bobShirtPress);
+        ColorStateList cShirt = rbobShirt;
+        ColorStateList cShirtPress = rbobShirtPress;
         //Pant colored Keys
-        ColorStateList cPant = getResources().getColorStateList(R.color.bobPants);
-        ColorStateList cPantPress = getResources().getColorStateList(R.color.bobPantsPress);
+        ColorStateList cPant = rbobPants;
+        ColorStateList cPantPress = rbobPantsPress;
         //Body colored Keys
-        ColorStateList cBody = getResources().getColorStateList(R.color.bobBody);
-        ColorStateList cBodyPress = getResources().getColorStateList(R.color.bobBodyPress);
+        ColorStateList cBody = rbobBody;
+        ColorStateList cBodyPress = rbobBodyPress;
         //Shoes colored Keys
-        ColorStateList cShoes = getResources().getColorStateList(R.color.bobShirt);
-        ColorStateList cShoesPress = getResources().getColorStateList(R.color.bobShirtPress);
+        ColorStateList cShoes = rbobShoes;
+        ColorStateList cShoesPress = rbobShoesPress;
 
         List<Keyboard.Key> keys = getKeyboard().getKeys();
 
@@ -55,7 +130,7 @@ public class CustomKeyboardView extends KeyboardView {
 
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setTextSize(70);
-            mPaint.setColor(Color.BLACK);
+            mPaint.setColor(fontColor);
 
             //TODO Put coloring thingy in methods
             switch (key.codes[0])

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
-    android:horizontalGap="0px"
-    android:verticalGap="0px"
+    android:horizontalGap="10px"
+    android:verticalGap="10px"
     android:keyHeight="50dp">
 
     <!--numbers-->
@@ -82,7 +82,7 @@
     <Row>
         <Key android:keyLabel="a" android:codes="97"
             android:isRepeatable="true"
-            android:horizontalGap="5%" android:keyEdgeFlags="left"/>
+            android:horizontalGap="1%" android:keyEdgeFlags="left"/>
         <Key android:keyLabel="s" android:codes="115"
             android:isRepeatable="true"/>
         <Key android:keyLabel="d" android:codes="100"

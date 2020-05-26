@@ -181,7 +181,6 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                 }
                 break;
             case 18:
-                /*
                 //Entrer dans les options de l'app
                 Intent paramIntent = new Intent(this, PreferencesActivity.class);
                 //Entrer dans les options de l'app dans les settings androidandroid
@@ -189,10 +188,10 @@ public class MockingKeyboard extends InputMethodService implements CustomKeyboar
                 //Uri uri = Uri.fromParts("package", getPackageName(), null);
                 //paramIntent.setData(uri);
                 paramIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(paramIntent);*/
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    switchToNextInputMethod(true);
-                }
+                startActivity(paramIntent);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//                    switchToNextInputMethod(true);
+//                }
                 break;
             case 301:
                 //Generate from Clipboard

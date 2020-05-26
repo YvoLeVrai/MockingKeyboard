@@ -10,9 +10,16 @@
         android:defaultValue="true"/>
 
     <DropDownPreference
+        android:entries="@array/mockingModeEntries"
+        android:entryValues="@array/mockingModeEntry_values"
         android:key="mockingMode"
         android:title="Mocking Mode"
-        android:entries="@array/mockingModeEntries"
-        app:useSimpleSummaryProvider="true"
-        android:entryValues="@array/mockingModeEntry_values"/>
+        app:useSimpleSummaryProvider="true" />
+
+    <DropDownPreference
+        android:entries="@array/keyboard_style"
+        android:entryValues="@array/keyboard_style"
+        android:key="keyboardStyle"
+        android:title="Keyboard Style"
+        app:useSimpleSummaryProvider="true" />
 </androidx.preference.PreferenceScreen>

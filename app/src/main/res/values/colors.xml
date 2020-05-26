@@ -18,4 +18,26 @@
     <color name="bobPantsPress">#8F2B13</color>
     <color name="bobShoes">#1F110E</color>
     <color name="bobShoesPress">#EFF1EC</color>
+
+    <color name="lightBobBody">#F8FA7D</color>
+    <color name="lightBobBodyPress">#AFBF60</color>
+    <color name="lightBobShirt">#FFFFFF</color>
+    <color name="lightBobShirtPress">#B6DDE4</color>
+    <color name="lightBobTie">#E07870</color>
+    <color name="lightBobTiePress">#8F4C47</color>
+    <color name="lightBobPants">#E3B071</color>
+    <color name="lightBobPantsPress">#8F5647</color>
+    <color name="lightBobShoes">#1F110E</color>
+    <color name="lightBobShoesPress">#EFF1EC</color>
+
+    <color name="darkBobBody">#7A7A7A</color>
+    <color name="darkBobBodyPress">#404040</color>
+    <color name="darkBobShirt">#959595</color>
+    <color name="darkBobShirtPress">#888888</color>
+    <color name="darkBobTie">#000000</color>
+    <color name="darkBobTiePress">#000000</color>
+    <color name="darkBobPants">#3E3E3E</color>
+    <color name="darkBobPantsPress">#1C1C1C</color>
+    <color name="darkBobShoes">#000000</color>
+    <color name="darkBobShoesPress">#EFF1EC</color>
 </resources>
