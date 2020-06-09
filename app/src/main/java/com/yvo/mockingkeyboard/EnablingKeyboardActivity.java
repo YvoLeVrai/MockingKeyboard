@@ -39,6 +39,15 @@ public class EnablingKeyboardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void button_switch_click(View view)
+    {
+        //Button to switch android keyboard
+        InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
+        if (imeManager != null) {
+            imeManager.showInputMethodPicker();
+        }
+    }
+
     private boolean isKeyboardEnabled()
     {
         boolean enabled = false;
